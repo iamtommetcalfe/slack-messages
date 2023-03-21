@@ -57,6 +57,6 @@ class SlackClientTest extends TestCase
         $slackClient = new SlackClient($_ENV['SLACK_TEST_TOKEN'], $httpClientMock);
         $result = $slackClient->sendEphemeralMessage($channel, $text, $user);
 
-        $this->assertSame('Ephemeral message sent successfully', $result);
+        $this->assertSame('Message sent successfully', $result);
     }
 }

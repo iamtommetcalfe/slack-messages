@@ -5,6 +5,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\ResponseInterface;
 use SlackMessages\Factory\HttpClientFactory;
 use SlackMessages\Interface\HttpClientInterface;
 use SlackMessages\Interface\MessageSenderInterface;
@@ -73,17 +74,7 @@ class SlackClient implements MessageSenderInterface
         try {
             $response = $this->httpClient->sendRequest($request);
 
-            $responseData = json_decode($response->getBody(), true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new InvalidArgumentException('Error decoding response JSON: ' . json_last_error_msg());
-            }
-
-            if ($responseData['ok']) {
-                return 'Message sent successfully';
-            } else {
-                return 'Error: ' . $responseData['error'];
-            }
+            return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
             return 'Error: ' . $e->getMessage();
         } catch (InvalidArgumentException $e) {
@@ -120,21 +111,35 @@ class SlackClient implements MessageSenderInterface
         try {
             $response = $this->httpClient->sendRequest($request);
 
-            $responseData = json_decode($response->getBody(), true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new InvalidArgumentException('Error decoding response JSON: ' . json_last_error_msg());
-            }
-
-            if ($responseData['ok']) {
-                return 'Ephemeral message sent successfully';
-            } else {
-                return 'Error: ' . $responseData['error'];
-            }
+            return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
             return 'Error: ' . $e->getMessage();
         } catch (InvalidArgumentException $e) {
             return 'Error: ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Processes the response from a Slack API request.
+     *
+     * @param ResponseInterface $response The response from the Slack API request.
+     * @return string A string describing the success or failure of the message sending.
+     * @throws InvalidArgumentException If there's an error decoding the response JSON.
+     */
+    private function processResponse(ResponseInterface $response): string
+    {
+        $responseData = json_decode($response->getBody(), true);
+
+        // Check for JSON decoding errors
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new InvalidArgumentException('Error decoding response JSON: ' . json_last_error_msg());
+        }
+
+        // Return appropriate message based on the API response
+        if ($responseData['ok']) {
+            return 'Message sent successfully';
+        } else {
+            return 'Error: ' . $responseData['error'];
         }
     }
 }
