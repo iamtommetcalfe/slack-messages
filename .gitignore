@@ -1,0 +1,8 @@
+/.phpunit.cache
+.idea/
+/vendor
+.env
+.phpunit.result.cache
+.editorconfig
+.gitattributes
+phpunit.xml

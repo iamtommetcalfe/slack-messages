@@ -1,0 +1,27 @@
+{
+    "name": "vendor/slack-messages",
+    "description": "A simple package to send messages via the Slack API",
+    "require": {
+        "guzzlehttp/guzzle": "^7.5",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "SlackMessages\\": "src/SlackMessages/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tom Metcalfe",
+            "email": "iamtommetcalfe@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    }
+}
