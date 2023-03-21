@@ -90,4 +90,51 @@ class SlackClient implements MessageSenderInterface
             return 'Error: ' . $e->getMessage();
         }
     }
+
+    /**
+     * Sends an ephemeral message to a Slack channel, visible only to a specific user.
+     *
+     * @param string $channel The channel to send the message to.
+     * @param string $text The message text.
+     * @param string $user The ID of the user who will see the ephemeral message.
+     * @return string A string describing the success or failure of the message sending.
+     */
+    public function sendEphemeralMessage(string $channel, string $text, string $user): string
+    {
+        $requestData = [
+            'channel' => $channel,
+            'text' => $text,
+            'user' => $user,
+        ];
+
+        $request = new Request(
+            'POST',
+            'chat.postEphemeral',
+            [
+                'Authorization' => "Bearer {$this->slackToken}",
+                'Content-Type' => 'application/json',
+            ],
+            json_encode($requestData)
+        );
+
+        try {
+            $response = $this->httpClient->sendRequest($request);
+
+            $responseData = json_decode($response->getBody(), true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new InvalidArgumentException('Error decoding response JSON: ' . json_last_error_msg());
+            }
+
+            if ($responseData['ok']) {
+                return 'Ephemeral message sent successfully';
+            } else {
+                return 'Error: ' . $responseData['error'];
+            }
+        } catch (GuzzleException|ClientExceptionInterface $e) {
+            return 'Error: ' . $e->getMessage();
+        } catch (InvalidArgumentException $e) {
+            return 'Error: ' . $e->getMessage();
+        }
+    }
 }
