@@ -32,8 +32,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Create env file
+      run: |
+        touch .env
+        echo SLACK_TEST_TOKEN=${{ secrets.SLACK_TEST_TOKEN }} >> .env
+        cat .env
 
     - name: Run test suite
       run: vendor/bin/phpunit
