@@ -1,6 +1,7 @@
 {
     "name": "vendor/slack-messages",
     "description": "A simple package to send messages via the Slack API",
+    "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "^7.5",
         "vlucas/phpdotenv": "^5.5"
