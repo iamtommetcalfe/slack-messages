@@ -21,5 +21,6 @@ composer install
 ```php
 $slackClient = new SlackClient($slackToken);
 $response = $slackClient->sendMessage($channel, $message);
+$ephemeralResponse = $slackClient->sendEphemeralMessage($channel, $message, $userId);
 ```
 
