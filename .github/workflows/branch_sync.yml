@@ -28,11 +28,8 @@ jobs:
           git checkout develop
           git merge --no-edit main
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          title: "Sync develop with main"
-          body: "Automatically syncing develop branch with main after a PR has been merged."
-          branch: "sync-develop-with-main"
-          base: "develop"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_ACTIONS_PAT }}
+          branch: develop
