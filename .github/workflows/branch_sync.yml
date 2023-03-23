@@ -27,5 +27,5 @@ jobs:
         run: |
           git checkout develop
           git merge --no-edit main
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_ACTIONS_PAT }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}
           git push origin develop
