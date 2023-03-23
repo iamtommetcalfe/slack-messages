@@ -22,9 +22,15 @@ composer install
 $slackClient = new SlackClient($slackToken);
 
 // This sends a message to a channel
-$response = $slackClient->sendMessage($channel, $message);
+$response = $slackClient->sendMessage($channelId, $message);
+
+// This updates a message in a channel
+$updateResponse = $slackClient->updateMessage($channelId, $text, $ts);
 
 // Instead of posting regular messages, you can use the sendEphemeralMessage method to send messages that are visible only to a specific user in a conversation.
-$ephemeralResponse = $slackClient->sendEphemeralMessage($channel, $message, $userId);
+$ephemeralResponse = $slackClient->sendEphemeralMessage($channelId, $message, $userId);
+
+// This deletes a message in a channel
+$deleteResponse = $slackClient->deleteMessage($channelId, $ts);
 ```
 
