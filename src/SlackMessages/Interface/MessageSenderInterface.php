@@ -33,4 +33,15 @@ interface MessageSenderInterface
      * @return stdClass The JSON object representing the API response.
      */
     public function updateMessage(string $channelId, string $text, string $ts): stdClass;
+
+    /**
+     * Add an emoji reaction to a message in a Slack channel.
+     *
+     * @param string $channel The channel ID where the message is located.
+     * @param string $timestamp The timestamp of the message to add the reaction to.
+     * @param string $emoji The emoji to be added as a reaction (e.g., 'thumbsup').
+     *
+     * @return stdClass The JSON decoded response from the Slack API.
+     */
+    public function addReaction(string $channel, string $timestamp, string $emoji): stdClass;
 }

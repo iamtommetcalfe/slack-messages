@@ -170,4 +170,27 @@ class SlackClientTest extends TestCase
         $result = $slackClient->deleteMessage($channel, $timestamp);
         $this->assertEquals($expectedResponse, $result);
     }
+
+    /**
+     * Test the addReaction method by providing a channel, timestamp and emoji name
+     */
+    public function testAddReaction()
+    {
+        // Arrange
+        $httpClient = $this->createMock(HttpClientInterface::class);
+        $httpClient->method('sendRequest')->willReturn(new Response(200, [], '{"ok": true}'));
+
+        $slackClient = new SlackClient('test-token', $httpClient);
+
+        $channel = 'test-channel';
+        $timestamp = '1234567890.123456';
+        $emoji = 'thumbsup';
+
+        // Act
+        $response = $slackClient->addReaction($channel, $timestamp, $emoji);
+
+        // Assert
+        $this->assertInstanceOf(stdClass::class, $response);
+        $this->assertTrue($response->ok);
+    }
 }
