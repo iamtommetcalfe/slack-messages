@@ -27,5 +27,12 @@ jobs:
         run: |
           git checkout develop
           git merge --no-edit main
-          git remote set-url origin https://x-access-token:${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}
-          git push origin develop
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Sync develop with main"
+          body: "Automatically syncing develop branch with main after a PR has been merged."
+          branch: "sync-develop-with-main"
+          base: "develop"
+          token: ${{ secrets.GITHUB_TOKEN }}
