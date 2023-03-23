@@ -55,21 +55,10 @@ class SlackClient implements MessageSenderInterface
      */
     public function sendMessage(string $channelId, string $text): stdClass
     {
-        // Prepare the request data and create a new Request object.
-        $requestData = [
+        $request = $this->createRequest('POST', 'chat.postMessage', [
             'channel' => $channelId,
             'text' => $text,
-        ];
-
-        $request = new Request(
-            'POST',
-            'chat.postMessage',
-            [
-                'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
-            ],
-            json_encode($requestData)
-        );
+        ]);
 
         // Send the request and handle the response.
         try {
@@ -91,21 +80,11 @@ class SlackClient implements MessageSenderInterface
      */
     public function updateMessage(string $channelId, string $text, string $ts): stdClass
     {
-        $requestData = [
+        $request = $this->createRequest('POST', 'chat.update', [
             'channel' => $channelId,
             'text' => $text,
             'ts' => $ts,
-        ];
-
-        $request = new Request(
-            'POST',
-            'chat.update',
-            [
-                'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
-            ],
-            json_encode($requestData)
-        );
+        ]);
 
         try {
             $response = $this->httpClient->sendRequest($request);
@@ -125,21 +104,11 @@ class SlackClient implements MessageSenderInterface
      */
     public function sendEphemeralMessage(string $channelId, string $user, string $text): stdClass
     {
-        $requestData = [
+        $request = $this->createRequest('POST', 'chat.postEphemeral', [
             'channel' => $channelId,
             'text' => $text,
             'user' => $user,
-        ];
-
-        $request = new Request(
-            'POST',
-            'chat.postEphemeral',
-            [
-                'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
-            ],
-            json_encode($requestData)
-        );
+        ]);
 
         try {
             $response = $this->httpClient->sendRequest($request);
@@ -159,20 +128,10 @@ class SlackClient implements MessageSenderInterface
      */
     public function deleteMessage(string $channel, string $timestamp): stdClass
     {
-        $requestData = [
+        $request = $this->createRequest('POST', 'chat.delete', [
             'channel' => $channel,
             'ts' => $timestamp,
-        ];
-
-        $request = new Request(
-            'POST',
-            'chat.delete',
-            [
-                'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
-            ],
-            json_encode($requestData)
-        );
+        ]);
 
         try {
             $response = $this->httpClient->sendRequest($request);
@@ -198,5 +157,27 @@ class SlackClient implements MessageSenderInterface
         }
 
         return $responseData;
+    }
+
+    /**
+     * Create a request object with the common headers and given method, endpoint, and payload.
+     *
+     * @param string $method The HTTP method for the request (e.g., 'POST', 'GET', etc.).
+     * @param string $endpoint The Slack API endpoint for the request (e.g., 'chat.postMessage').
+     * @param array $payload The request payload containing the required data for the API call.
+     *
+     * @return Request The prepared request object.
+     */
+    private function createRequest(string $method, string $endpoint, array $payload): Request
+    {
+        return new Request(
+            $method,
+            $endpoint,
+            [
+                'Authorization' => "Bearer {$this->slackToken}",
+                'Content-Type' => 'application/json',
+            ],
+            json_encode($payload)
+        );
     }
 }
