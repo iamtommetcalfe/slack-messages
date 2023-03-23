@@ -160,6 +160,31 @@ class SlackClient implements MessageSenderInterface
     }
 
     /**
+     * Add an emoji reaction to a message in a Slack channel.
+     *
+     * @param string $channel The channel ID where the message is located.
+     * @param string $timestamp The timestamp of the message to add the reaction to.
+     * @param string $emoji The emoji to be added as a reaction (e.g., 'thumbsup').
+     *
+     * @return stdClass The JSON decoded response from the Slack API.
+     */
+    public function addReaction(string $channel, string $timestamp, string $emoji): stdClass
+    {
+        $request = $this->createRequest('POST', 'reactions.add', [
+            'name' => $emoji,
+            'channel' => $channel,
+            'timestamp' => $timestamp,
+        ]);
+
+        try {
+            $response = $this->httpClient->sendRequest($request);
+            return $this->processResponse($response);
+        } catch (GuzzleException|ClientExceptionInterface $e) {
+            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Create a request object with the common headers and given method, endpoint, and payload.
      *
      * @param string $method The HTTP method for the request (e.g., 'POST', 'GET', etc.).

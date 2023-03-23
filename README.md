@@ -17,6 +17,7 @@ composer install
 ```
 
 ## Examples
+Slack API Reference https://api.slack.com/methods
 
 ```php
 $slackClient = new SlackClient($slackToken);
@@ -32,5 +33,8 @@ $ephemeralResponse = $slackClient->sendEphemeralMessage($channelId, $message, $u
 
 // This deletes a message in a channel
 $deleteResponse = $slackClient->deleteMessage($channelId, $ts);
+
+// Adds a reaction to a message
+$reactionResponse = $slackClient->addReaction($channel, $ts, $emojiName);
 ```
 
