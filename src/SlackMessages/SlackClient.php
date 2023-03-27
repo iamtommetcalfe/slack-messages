@@ -10,6 +10,7 @@ use SlackMessages\Factory\HttpClientFactory;
 use SlackMessages\Interface\HttpClientInterface;
 use SlackMessages\Interface\MessageSenderInterface;
 use stdClass;
+use Throwable;
 
 /**
  * SlackClient class for sending messages to Slack channels.
@@ -66,7 +67,7 @@ class SlackClient implements MessageSenderInterface
 
             return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
-            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+            $this->handleException($e);
         }
     }
 
@@ -90,7 +91,7 @@ class SlackClient implements MessageSenderInterface
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
-            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+            $this->handleException($e);
         }
     }
 
@@ -115,7 +116,7 @@ class SlackClient implements MessageSenderInterface
 
             return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
-            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+            $this->handleException($e);
         }
     }
 
@@ -137,7 +138,7 @@ class SlackClient implements MessageSenderInterface
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
-            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+            $this->handleException($e);
         }
     }
 
@@ -180,7 +181,7 @@ class SlackClient implements MessageSenderInterface
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
         } catch (GuzzleException|ClientExceptionInterface $e) {
-            throw new InvalidArgumentException('Error: ' . $e->getMessage());
+            $this->handleException($e);
         }
     }
 
@@ -204,5 +205,14 @@ class SlackClient implements MessageSenderInterface
             ],
             json_encode($payload)
         );
+    }
+
+    /**
+     * @param Throwable $e
+     * @return void
+     */
+    private function handleException(Throwable $e): void
+    {
+        throw new InvalidArgumentException('Error: ' . $e->getMessage());
     }
 }
