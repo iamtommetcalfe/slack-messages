@@ -11,6 +11,6 @@ $channel = 'C03D0SLK3QC'; // Replace this with your desired Slack channel
 $message = 'Hello, Slassssck!';
 
 $slackClient = new SlackClient($slackToken);
-$response = $slackClient->deleteMessage($channel, '1679580636.942559');
+$response = $slackClient->addReaction($channel, '1679580403.818139', 'tada');
 
-//echo $response . PHP_EOL;
+echo json_encode($response);
