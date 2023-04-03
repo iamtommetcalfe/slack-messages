@@ -7,9 +7,6 @@
 5. Click "Install App" in the sidebar menu and then click the "Install App to Workspace" button. Follow the prompts to authorize the app and grant the necessary permissions.
 6. After installing the app, you will be redirected to the "OAuth & Permissions" page. Copy the "Bot User OAuth Token" and save it securely. You will need it later when configuring your PHP package.
 
-### .env file
-1. Copy the .env.example file and rename as .env
-2. Add your above token to the SLACK_TEST_TOKEN variable in .env
 
 ## Installation
 ```shell
