@@ -19,19 +19,38 @@ Slack API Reference https://api.slack.com/methods
 ```php
 $slackClient = new SlackClient($slackToken);
 
+$channelId = 'C03D0SLK3QC';
+
+$message = 'Hello, World!';
+
+$ts = '1234567890.123456';
+
 // This sends a message to a channel
 $response = $slackClient->sendMessage($channelId, $message);
 
 // This updates a message in a channel
-$updateResponse = $slackClient->updateMessage($channelId, $text, $ts);
+$updateResponse = $slackClient->updateMessage($channelId, $message, $ts);
 
 // Instead of posting regular messages, you can use the sendEphemeralMessage method to send messages that are visible only to a specific user in a conversation.
+$user = 'U12345678';
 $ephemeralResponse = $slackClient->sendEphemeralMessage($channelId, $message, $userId);
 
 // This deletes a message in a channel
 $deleteResponse = $slackClient->deleteMessage($channelId, $ts);
 
 // Adds a reaction to a message
-$reactionResponse = $slackClient->addReaction($channel, $ts, $emojiName);
+$emojiName = 'thumbsup';
+$reactionResponse = $slackClient->addReaction($channelId, $ts, $emojiName);
+
+// Schedules a message
+$postAt = 1672845600;
+$scheduledResponse = $slackClient->scheduleMessage($channelId, $message, $postAt);
+
+// Lists all scheduled messages
+$scheduledListResponse = $slackClient->listScheduledMessages($channelId);
+
+// Delete a scheduled message
+$scheduledMessageId = '1234567890.123456';
+$scheduledDeleteResponse = $slackClient->deleteScheduledMessage($channelId, $scheduledMessageId);
 ```
 
