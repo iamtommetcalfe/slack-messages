@@ -1,8 +1,8 @@
-## PR Description
+# PR Description
 
 Please provide a brief description of the new feature/bug being submitted.
 
-### Bug
+## Bug
 ### Steps to Reproduce 
 
 1. Step 1
@@ -31,14 +31,14 @@ Describe the tests you've performed
 - [ ] Test case 2
 - [ ] Test case 3
 
-### Documentation
+## Documentation
 
 List any updates made to the documentation to reflect the new feature or resolution of the bug.
 
-### Screenshots or Demos
+## Screenshots or Demos
 
 If applicable, add screenshots or demos to help explain the feature and show it in action.
 
-### Additional Context
+## Additional Context
 
 Provide any additional context or information that may be helpful during the review process.
