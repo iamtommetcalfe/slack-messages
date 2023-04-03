@@ -16,16 +16,6 @@ interface MessageSenderInterface
     public function sendMessage(string $channelId, string $text): stdClass;
 
     /**
-     * Sends an ephemeral message to a user in a Slack channel.
-     *
-     * @param string $channelId The channel where the message will be shown.
-     * @param string $user The user who will see the ephemeral message.
-     * @param string $text The message text.
-     * @return stdClass The JSON object representing the API response.
-     */
-    public function sendEphemeralMessage(string $channelId, string $user, string $text): stdClass;
-
-    /**
      * Updates an existing message in a Slack channel.
      *
      * @param string $channelId The channel containing the message to update.
@@ -36,13 +26,11 @@ interface MessageSenderInterface
     public function updateMessage(string $channelId, string $text, string $ts): stdClass;
 
     /**
-     * Add an emoji reaction to a message in a Slack channel.
+     * Deletes a message in a Slack channel.
      *
-     * @param string $channel The channel ID where the message is located.
-     * @param string $timestamp The timestamp of the message to add the reaction to.
-     * @param string $emoji The emoji to be added as a reaction (e.g., 'thumbsup').
-     *
-     * @return stdClass The JSON decoded response from the Slack API.
+     * @param string $channel The channel where the message is located.
+     * @param string $timestamp The timestamp of the message to delete.
+     * @return stdClass The JSON object representing the API response.
      */
-    public function addReaction(string $channel, string $timestamp, string $emoji): stdClass;
+    public function deleteMessage(string $channel, string $timestamp): stdClass;
 }
