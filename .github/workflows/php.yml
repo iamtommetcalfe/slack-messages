@@ -32,11 +32,8 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Create env file
-      run: |
-        touch .env
-        echo SLACK_TEST_TOKEN=${{ secrets.SLACK_TEST_TOKEN }} >> .env
-        cat .env
+    - name: Run PHP_CodeSniffer
+      run: vendor/bin/phpcs --standard=PSR12 src/
 
     - name: Run test suite
       run: vendor/bin/phpunit

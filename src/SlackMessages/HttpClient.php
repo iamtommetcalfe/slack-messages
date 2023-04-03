@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackMessages;
 
 use GuzzleHttp\Client as GuzzleClient;

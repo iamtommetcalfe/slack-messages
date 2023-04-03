@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackMessages\Factory;
 
 use SlackMessages\HttpClient;

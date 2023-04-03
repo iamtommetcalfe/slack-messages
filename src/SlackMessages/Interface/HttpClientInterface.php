@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackMessages\Interface;
 
 use Psr\Http\Client\ClientInterface;

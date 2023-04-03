@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackMessages;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -66,7 +67,7 @@ class SlackClient implements MessageSenderInterface
             $response = $this->httpClient->sendRequest($request);
 
             return $this->processResponse($response);
-        } catch (GuzzleException|ClientExceptionInterface $e) {
+        } catch (GuzzleException | ClientExceptionInterface $e) {
             $this->handleException($e);
         }
     }
@@ -90,7 +91,7 @@ class SlackClient implements MessageSenderInterface
         try {
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
-        } catch (GuzzleException|ClientExceptionInterface $e) {
+        } catch (GuzzleException | ClientExceptionInterface $e) {
             $this->handleException($e);
         }
     }
@@ -115,7 +116,7 @@ class SlackClient implements MessageSenderInterface
             $response = $this->httpClient->sendRequest($request);
 
             return $this->processResponse($response);
-        } catch (GuzzleException|ClientExceptionInterface $e) {
+        } catch (GuzzleException | ClientExceptionInterface $e) {
             $this->handleException($e);
         }
     }
@@ -137,7 +138,7 @@ class SlackClient implements MessageSenderInterface
         try {
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
-        } catch (GuzzleException|ClientExceptionInterface $e) {
+        } catch (GuzzleException | ClientExceptionInterface $e) {
             $this->handleException($e);
         }
     }
@@ -180,7 +181,7 @@ class SlackClient implements MessageSenderInterface
         try {
             $response = $this->httpClient->sendRequest($request);
             return $this->processResponse($response);
-        } catch (GuzzleException|ClientExceptionInterface $e) {
+        } catch (GuzzleException | ClientExceptionInterface $e) {
             $this->handleException($e);
         }
     }
