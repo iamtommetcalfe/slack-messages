@@ -31,7 +31,7 @@ class ScheduledMessageTest extends TestCase
             ->willReturnCallback(function ($request) use ($expectedResponse) {
                 $this->assertSame('POST', $request->getMethod());
                 $this->assertSame('chat.scheduleMessage', $request->getUri()->getPath());
-                $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+                $this->assertSame('application/json; charset=utf-8', $request->getHeaderLine('Content-Type'));
                 $this->assertJsonStringEqualsJsonString(
                     json_encode([
                         'channel' => 'C12345678',
@@ -80,7 +80,7 @@ class ScheduledMessageTest extends TestCase
             ->willReturnCallback(function ($request) use ($expectedResponse) {
                 $this->assertSame('GET', $request->getMethod());
                 $this->assertSame('chat.scheduledMessages.list', $request->getUri()->getPath());
-                $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+                $this->assertSame('application/json; charset=utf-8', $request->getHeaderLine('Content-Type'));
                 $response = $this->createMock(ResponseInterface::class);
                 $response->method('getBody')->willReturn(json_encode($expectedResponse));
                 return $response;
@@ -112,7 +112,7 @@ class ScheduledMessageTest extends TestCase
             ->willReturnCallback(function ($request) use ($expectedResponse) {
                 $this->assertSame('POST', $request->getMethod());
                 $this->assertSame('chat.deleteScheduledMessage', $request->getUri()->getPath());
-                $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+                $this->assertSame('application/json; charset=utf-8', $request->getHeaderLine('Content-Type'));
                 $this->assertJsonStringEqualsJsonString(
                     json_encode([
                         'channel' => 'C12345678',
