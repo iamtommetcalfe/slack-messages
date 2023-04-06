@@ -20,6 +20,8 @@ abstract class AbstractSlackClient
 {
     private const BASE_URI = 'https://slack.com/api/';
 
+    private const CONTENT_TYPE = 'application/json; charset=utf-8';
+
     /**
      * @var HttpClientInterface The HTTP client for making requests to the Slack API.
      */
@@ -44,7 +46,7 @@ abstract class AbstractSlackClient
             'base_uri' => self::BASE_URI,
             'headers' => [
                 'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
+                'Content-Type' => self::CONTENT_TYPE,
             ],
         ]);
     }
@@ -83,7 +85,7 @@ abstract class AbstractSlackClient
             $endpoint,
             [
                 'Authorization' => "Bearer {$this->slackToken}",
-                'Content-Type' => 'application/json',
+                'Content-Type' => self::CONTENT_TYPE,
             ],
             json_encode($payload)
         );

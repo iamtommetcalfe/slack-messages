@@ -6,7 +6,6 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use SlackMessages\Interface\HttpClientInterface;
 use SlackMessages\MessageSender;
-use SlackMessages\SlackClient;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Psr7\Response;
 use stdClass;
@@ -113,7 +112,7 @@ class MessageSenderTest extends TestCase
             ->willReturnCallback(function ($request) use ($expectedResponse) {
                 $this->assertSame('POST', $request->getMethod());
                 $this->assertSame('chat.delete', $request->getUri()->getPath());
-                $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+                $this->assertSame('application/json; charset=utf-8', $request->getHeaderLine('Content-Type'));
                 $this->assertJsonStringEqualsJsonString(
                     json_encode([
                         'channel' => 'C12345678',

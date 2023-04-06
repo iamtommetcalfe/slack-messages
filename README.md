@@ -46,6 +46,12 @@ $reactionOperations = new \SlackMessages\ReactionOperations($slackToken);
 $emojiName = 'thumbsup';
 $reactionResponse = $reactionOperations->addReaction($channelId, $ts, $emojiName);
 
+// Get reactions
+$reactionGetResponse = $reactionOperations->getReactions($channelId, $ts);
+
+// Removes a reaction from a message
+$reactionDeleteResponse = $reactionOperations->deleteReaction($channelId, $ts, $emojiName);
+
 $scheduledMessage = new \SlackMessages\ScheduledMessage($slackToken);
 
 // Schedules a message
